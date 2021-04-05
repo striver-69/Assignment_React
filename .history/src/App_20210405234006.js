@@ -4,20 +4,21 @@ import './App.css';
 import Results from './components/Results';
 
 const App = () => {
-  const [limit,setLimit]=useState(0)
-  const[launch,setLaunch]=useState(false)
+  const [limit,setLimit]=useState(1)
   const [results, setResults] = useState([]);
 
   useEffect(()=>{
     async function fetchData(){
       const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
-        limit:limit,
-        launch_success:launch
+        limit:limit
       }})
       setResults(request.data)
-      console.log(limit)
+      return request
     }
     
+    if(limit&& !results.length){
+      fetchData()
+    }else{
       const timeoutId=setTimeout(()=>{
         if(limit){
           fetchData()
@@ -27,15 +28,15 @@ const App = () => {
       return ()=>{
         clearTimeout(timeoutId)
       }
-      
-  },[limit,launch])
+    }
+
+  },[limit])
 
   console.log(results)
   return (  
     <div className='container mt-5'>
       <h1 className='text-primary mb-3'>My Blog</h1>
-      <button onClick={()=>setLimit(prev=>prev+1)}>ADD</button>
-      <button onClick={()=>setLaunch(prev=>!prev)}>Launch</button>
+      <button onClick={()=>setLimit(limit+1)}>ADD</button>
       <Results limit={limit} results={results}/>
     </div>
   );

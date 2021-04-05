@@ -11,8 +11,7 @@ const App = () => {
   useEffect(()=>{
     async function fetchData(){
       const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
-        limit:limit,
-        launch_success:launch
+        limit:limit
       }})
       setResults(request.data)
       console.log(limit)
@@ -28,9 +27,9 @@ const App = () => {
         clearTimeout(timeoutId)
       }
       
-  },[limit,launch])
+  },[limit])
 
-  console.log(results)
+  
   return (  
     <div className='container mt-5'>
       <h1 className='text-primary mb-3'>My Blog</h1>
