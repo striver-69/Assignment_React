@@ -12,55 +12,68 @@ const App = () => {
   const [launch,setLaunch]=useState(false)
   const [land,setLand]=useState(false)
   const [results, setResults] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(2020);
+  const [first,setFirst]=useState(0)
 
   useEffect(()=>{
-    async function fetchData(){
-      const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
-        limit:limit,
-        launch_success:launch,
-        land_success:land,
-        launch_year:startDate.getFullYear()
-      }})
-      setResults(request.data)
-      console.log(limit) 
-    }
-
-      const timeoutId=setTimeout(()=>{
-        if(limit){
-          fetchData()
-        }
-      },500)
-  
-      return ()=>{
-        clearTimeout(timeoutId)
+    if(first!==0)
+    {
+      async function fetchData(){
+        const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
+          limit:limit,
+          launch_success:launch,
+          land_success:land,
+          launch_year:startDate
+        }})
+        setResults(request.data)
       }
-      
+  
+        const timeoutId=setTimeout(()=>{
+          if(limit){
+            fetchData()
+          }
+        },500)
+    
+        return ()=>{
+          clearTimeout(timeoutId)
+        }
+    }
+    else{
+      async function fetchData(){
+        const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
+          limit:limit
+        }})
+        setResults(request.data)
+      }
+      fetchData()
+      setFirst(first+1)
+    }
   },[limit,launch,land,startDate])
 
   return (  
     <div className='ui container'>
+      <div className="ui inverted segment">
       <Header/>
       <div className="ui divider"></div>
       <Input limit={limit} setLimit={setLimit}/>
       <div className="ui divider"></div>
-      <div className="ui segment">
+      <div className="ui inverted segment">
         <div className="ui two column very relaxed grid">
           <div className="column">
-            <Button prop={launch} setProp={setLaunch} val="launch"/>
+            <Button prop={launch} setProp={setLaunch} val="SetLaunch"/>
           </div>
-          
           <div className="column">
-            <Button prop={land} setProp={setLand} val="land"/>
+            <Button prop={land} setProp={setLand} val="SetLand"/>
           </div>
         </div>
-        <div className="ui vertical divider"></div>
+        <div className="ui vertical divider">OR</div>
       </div>
       <div className="ui divider"></div>
       <Datepicker startDate={startDate} setStartDate={setStartDate}/>
       <div className="ui divider"></div>
-      <div className="ui three column grid">
-        <Results limit={limit} results={results}/>
+      <div className="ui segment">
+        <Results results={results}/>
+      </div>
       </div>
     </div>
   );

@@ -1,18 +1,22 @@
 import React from 'react'
-function Results({limit,results}) {
+import Contents from './Contents'
+function Results({results}) {
+  console.log(results)
   return (
-    <div className="column">
-    {limit}
+    <div className="ui inverted segment">
+    <div className="ui relaxed middle aligned animated list">
       {
         results.map((result)=>{
-          return (<div key={result.flight_number} className="ui fluid card">
-          <div className="image">
-            <img src={`${result.links.flickr_images[0]}` } alt=""/>
+          return (
+            <div key={result.flight_number} className="item">
+            <img className="ui small image" src={`${result.links.flickr_images[0]}` } onerror="https://live.staticflickr.com/65535/50500804918_eb1187e1b2_o.jpg" alt=""/>
+            <Contents result={result}/>
           </div>
-            <div className="content">{result.launch_site.site_name}</div>
-          </div>)
+            
+          )
         })
       }
+    </div>
     </div>
   )
 }
