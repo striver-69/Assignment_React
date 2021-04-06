@@ -39,14 +39,28 @@ const App = () => {
   },[limit,launch,land,startDate])
 
   return (  
-    <div className='ui celled grid'>
-      <div className="ui three column divided grid">
+    <div className='ui container'>
       <Header/>
+      <div className="ui divider"></div>
       <Input limit={limit} setLimit={setLimit}/>
-      <Button prop={launch} setProp={setLaunch}/>
-      <Button prop={land} setProp={setLand}/>
+      <div className="ui divider"></div>
+      <div className="ui segment">
+        <div className="ui two column very relaxed grid">
+          <div className="column">
+            <Button prop={launch} setProp={setLaunch} val="launch"/>
+          </div>
+          
+          <div className="column">
+            <Button prop={land} setProp={setLand} val="land"/>
+          </div>
+        </div>
+        <div className="ui vertical divider"></div>
+      </div>
+      <div className="ui divider"></div>
       <Datepicker startDate={startDate} setStartDate={setStartDate}/>
-      <Results limit={limit} results={results}/>
+      <div className="ui divider"></div>
+      <div className="ui three column grid">
+        <Results limit={limit} results={results}/>
       </div>
     </div>
   );

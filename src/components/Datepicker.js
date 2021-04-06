@@ -5,7 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 function Datepicker({startDate,setStartDate}) {
   
   return (
-    <div>
       <DatePicker
       selected={startDate}
       onChange={date => setStartDate(date)}
@@ -13,7 +12,6 @@ function Datepicker({startDate,setStartDate}) {
       dateFormat="yyyy"
       yearItemNumber={9}
     />
-    </div>
   )
 }
 

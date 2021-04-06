@@ -1,16 +1,16 @@
 import React from 'react'
 function Results({limit,results}) {
   return (
-    <div>
+    <div className="column">
     {limit}
       {
         results.map((result)=>{
-          console.log(result.links.flickr_images[0])
-          return <div key={result.flight_number}>{result.launch_site.site_name}
-          <div className="ui tiny images">
+          return (<div key={result.flight_number} className="ui fluid card">
+          <div className="image">
             <img src={`${result.links.flickr_images[0]}` } alt=""/>
           </div>
-          </div>
+            <div className="content">{result.launch_site.site_name}</div>
+          </div>)
         })
       }
     </div>
