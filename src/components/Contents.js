@@ -22,7 +22,7 @@ function Contents({result}) {
         <div class="ui yellow huge header">
           Mission and Rockets
           <div className="ui text container">
-            <p style={{color:'white'}}>{`The name of the mission was ${result.rocket.rocket_name} and it's type was ${result.rocket.rocket_type} The name of the mission was ${result.mission_name}` }</p>
+            <p style={{color:'white'}}>{`The name of the Rocket was ${result.rocket.rocket_name} and it's type was ${result.rocket.rocket_type} The name of the mission was ${result.mission_name}` }</p>
           </div>
         </div>
         <div className="ui divider"></div>
