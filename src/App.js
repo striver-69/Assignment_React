@@ -45,8 +45,9 @@ const App = () => {
         }})
         setResults(request.data)
       }
-      fetchData()
       setFirst(first+1)
+      fetchData()
+      
     }
   },[limit,launch,land,startDate])
 
