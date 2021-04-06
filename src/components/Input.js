@@ -5,7 +5,7 @@ function Input({limit,setLimit}) {
     <div className="ui inverted segment">
       <div className="ui centered grid">
           <div className="ui inverted input">
-            <input type="text" value={limit} onChange={(e)=>setLimit(e.target.value)} placeholder="Limit..."/>
+            <input type="number" value={limit} onChange={(e)=>setLimit(e.target.value)} placeholder="Limit..."/>
           </div>
       </div>
     </div>

@@ -13,10 +13,19 @@ const App = () => {
   const [land,setLand]=useState(false)
   const [results, setResults] = useState([]);
   const [startDate, setStartDate] = useState(2020);
-  const [first,setFirst]=useState(0)
 
   useEffect(()=>{
-    if(first!==0)
+    if(limit===100&&!launch&&!land&&startDate ===2020){
+      async function fetchData(){
+        const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
+          limit:limit
+        }})
+        setResults(request.data)
+      }
+      fetchData()
+      
+    }
+    else
     {
       async function fetchData(){
         const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
@@ -38,17 +47,7 @@ const App = () => {
           clearTimeout(timeoutId)
         }
     }
-    else{
-      async function fetchData(){
-        const request=await axios.get('https://api.spaceXdata.com/v3/launches',{params:{
-          limit:limit
-        }})
-        setResults(request.data)
-      }
-      setFirst(first+1)
-      fetchData()
-      
-    }
+    
   },[limit,launch,land,startDate])
 
   return (  
