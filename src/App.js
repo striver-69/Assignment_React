@@ -66,7 +66,7 @@ const App = () => {
             <Button prop={land} setProp={setLand} val="SetLand"/>
           </div>
         </div>
-        <div className="ui vertical divider">OR</div>
+        <div className="ui vertical divider" style={{color:'white'}}><h3>OR</h3></div>
       </div>
       <div className="ui divider"></div>
       <Datepicker startDate={startDate} setStartDate={setStartDate}/>
