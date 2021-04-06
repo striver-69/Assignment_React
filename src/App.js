@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
 import Results from './components/Results';
+import Input from './components/Input';
+import Header from './components/Header';
+import Button from './components/Button';
+import Datepicker from './components/Datepicker';
 
 const App = () => {
   const [limit,setLimit]=useState(100)
@@ -21,10 +23,9 @@ const App = () => {
         launch_year:startDate.getFullYear()
       }})
       setResults(request.data)
-      console.log(limit)
-      
+      console.log(limit) 
     }
-    
+
       const timeoutId=setTimeout(()=>{
         if(limit){
           fetchData()
@@ -37,28 +38,14 @@ const App = () => {
       
   },[limit,launch,land,startDate])
 
-  console.log(results)
-  console.log(startDate)
   return (  
     <div className='ui celled grid'>
       <div className="ui three column divided grid">
-      <h2 class="ui header">
-        <i class="space shuttle icon"></i>
-          <div class="content">Rockets for the future!</div>
-      </h2>
-      <label>
-      Limit:
-      <input type="number" value={limit} onChange={(e)=>setLimit(e.target.value)}/>
-      </label>
-      <button className={`ui ${launch? "red":"green"} button`} onClick={()=>setLaunch(prev=>!prev)}>Launch</button>
-      <button className={`ui ${land? "red":"green"} button`} onClick={()=>setLand(prev=>!prev)}>Land</button>
-      <DatePicker
-      selected={startDate}
-      onChange={date => setStartDate(date)}
-      showYearPicker
-      dateFormat="yyyy"
-      yearItemNumber={9}
-    />
+      <Header/>
+      <Input limit={limit} setLimit={setLimit}/>
+      <Button prop={launch} setProp={setLaunch}/>
+      <Button prop={land} setProp={setLand}/>
+      <Datepicker startDate={startDate} setStartDate={setStartDate}/>
       <Results limit={limit} results={results}/>
       </div>
     </div>
